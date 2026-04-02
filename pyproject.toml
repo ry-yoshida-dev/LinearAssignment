@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "linear_assignment"
+version = "0.0.1"
+authors = [
+  { name = "Ryuto Yoshida" },
+]
+description = "Unified linear assignment solvers for cost/score matrices."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy",
+    "scipy",
+    "numba",
+]
+
+[project.urls]
+Homepage = "https://github.com/ry-yoshida-private/LinearAssignment"
+"Bug Tracker" = "https://github.com/ry-yoshida-private/LinearAssignment/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
