@@ -23,8 +23,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/ry-yoshida-private/LinearAssignment"
-"Bug Tracker" = "https://github.com/ry-yoshida-private/LinearAssignment/issues"
+Homepage = "https://github.com/ry-yoshida-dev/LinearAssignment"
+"Bug Tracker" = "https://github.com/ry-yoshida-dev/LinearAssignment/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
