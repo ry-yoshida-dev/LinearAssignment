@@ -13,7 +13,7 @@ The package centers on:
 
 | Component | Description |
 | --------- | ----------- |
-| [`matrix.py`](./matrix.py) | `AssignmentMatrix` and matrix utility operations |
+| [`matrix/`](./matrix/) | `AssignmentMatrix` (mixins: property, function, special) and protocols |
 | [`value_type.py`](./value_type.py) | `AssignmentValueType` enum (`COST` / `SCORE`) |
 | [`solver.py`](./solver.py) | `AssignmentSolver` abstract base |
 | [`method.py`](./method.py) | `AssignmentSolverMethod` enum and solver factory (`build()`) |
