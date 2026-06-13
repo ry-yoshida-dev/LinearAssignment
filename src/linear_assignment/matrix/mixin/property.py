@@ -7,10 +7,10 @@ import numpy as np
 from ...array_types import NumericArray
 from ...value_type import AssignmentValueType
 
-from ..protocols.backing import AssignmentMatrixBacking
+from .base import AssignmentMatrixMixinBase
 
 
-class AssignmentMatrixPropertyMixin(AssignmentMatrixBacking):
+class AssignmentMatrixPropertyMixin(AssignmentMatrixMixinBase):
     """
     Derived scalar and shape properties for an assignment matrix.
     """

@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from .solver import AssignmentSolver
 
+
 class AssignmentSolverMethod(Enum):
     """
     AssignmentSolverMethod is the method of the assignment solver.

@@ -6,13 +6,13 @@ from typing import TYPE_CHECKING, Any
 
 from ...array_types import NumericArray
 
-from ..protocols.backing import AssignmentMatrixBacking
+from .base import AssignmentMatrixMixinBase
 
 if TYPE_CHECKING:
     from ..core import AssignmentMatrix
 
 
-class AssignmentMatrixSpecialMixin(AssignmentMatrixBacking):
+class AssignmentMatrixSpecialMixin(AssignmentMatrixMixinBase):
     """
     Indexing, arithmetic, and string representation for assignment matrices.
     """

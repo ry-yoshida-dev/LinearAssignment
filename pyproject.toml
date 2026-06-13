@@ -22,9 +22,30 @@ dependencies = [
     "numba",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
 [project.urls]
 Homepage = "https://github.com/ry-yoshida-dev/LinearAssignment"
 "Bug Tracker" = "https://github.com/ry-yoshida-dev/LinearAssignment/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src", "."]
+
+[tool.basedpyright]
+include = ["src", "tests"]
+pythonVersion = "3.10"
+typeCheckingMode = "strict"
+reportMissingParameterType = "error"
+reportUnknownParameterType = "error"
+reportMissingTypeArgument = "error"
+reportUnknownVariableType = "error"
+reportUnknownMemberType = "error"
+reportUnknownArgumentType = "error"
+reportImplicitRelativeImport = "error"
