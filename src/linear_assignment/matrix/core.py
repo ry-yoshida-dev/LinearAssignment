@@ -4,8 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-import numpy as np
-
+from ..array_types import NumericArray
 from ..value_type import AssignmentValueType
 
 from .mixin import (
@@ -26,13 +25,13 @@ class AssignmentMatrix(
 
     Attributes
     ----------
-    value : np.ndarray
+    value : NumericArray
         Matrix with shape ``(N, M)``.
     type : AssignmentValueType
         Whether lower (COST) or higher (SCORE) values are preferred.
     """
 
-    value: np.ndarray
+    value: NumericArray
     type: AssignmentValueType
 
     def __post_init__(self) -> None:

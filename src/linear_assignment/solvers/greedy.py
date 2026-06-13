@@ -1,6 +1,7 @@
 import numpy as np
 from importlib import import_module
 
+from ..array_types import AssignmentPairIndices, IndexArray
 from ..matrix import AssignmentMatrix
 from ..method import AssignmentSolverMethod
 from ..solver import AssignmentSolver
@@ -17,7 +18,7 @@ class GreedyAssignmentSolver(AssignmentSolver):
     def _run(
         self,
         matrix: AssignmentMatrix,
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> AssignmentPairIndices:
         """
         Solve assignment problem using a greedy approach.
         
@@ -45,16 +46,16 @@ class GreedyAssignmentSolver(AssignmentSolver):
     @staticmethod
     @njit(cache=True)  # pyright: ignore[reportUntypedFunctionDecorator]
     def _select_greedy_matches(
-        sorted_indices: np.ndarray,
+        sorted_indices: IndexArray,
         num_rows: int,
         num_cols: int,
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> AssignmentPairIndices:
         """
         Select greedy matches from the sorted indices.
         
         Parameters:
         ----------
-        sorted_indices: np.ndarray
+        sorted_indices: IndexArray
             The sorted indices of the matrix.
         num_rows: int
             The number of rows in the matrix.

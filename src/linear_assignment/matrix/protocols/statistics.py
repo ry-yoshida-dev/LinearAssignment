@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-import numpy as np
+from ...array_types import NumericArray
 
 from .backing import AssignmentMatrixBacking
 
@@ -15,7 +15,7 @@ class AssignmentMatrixStatistics(AssignmentMatrixBacking, Protocol):
 
     Attributes
     ----------
-    flatten : np.ndarray
+    flatten : NumericArray
         One-dimensional view of ``value``.
     min : float
         Minimum entry in ``value``.
@@ -24,7 +24,7 @@ class AssignmentMatrixStatistics(AssignmentMatrixBacking, Protocol):
     """
 
     @property
-    def flatten(self) -> np.ndarray: ...
+    def flatten(self) -> NumericArray: ...
 
     @property
     def min(self) -> float: ...

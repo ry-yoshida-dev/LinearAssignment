@@ -4,8 +4,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-import numpy as np
-
+from ...array_types import NumericArray
 from ...value_type import AssignmentValueType
 
 
@@ -18,11 +17,11 @@ class AssignmentMatrixBacking(Protocol):
 
     Attributes
     ----------
-    value : np.ndarray
+    value : NumericArray
         Two-dimensional assignment matrix.
     type : AssignmentValueType
         Whether lower (COST) or higher (SCORE) values are preferred.
     """
 
-    value: np.ndarray
+    value: NumericArray
     type: AssignmentValueType

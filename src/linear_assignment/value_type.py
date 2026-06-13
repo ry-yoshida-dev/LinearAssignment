@@ -1,6 +1,8 @@
-import numpy as np
+from collections.abc import Callable
 from enum import Enum
-from typing import Callable
+
+from .array_types import BoolArray, NumericArray
+
 
 class AssignmentValueType(Enum):
     """
@@ -14,7 +16,7 @@ class AssignmentValueType(Enum):
     def create_threshold_predicate(
         self, 
         threshold: float
-        ) -> Callable[[np.ndarray], np.ndarray]:
+        ) -> Callable[[NumericArray], BoolArray]:
         """
         Create a threshold predicate function based on the assignment value type.
 

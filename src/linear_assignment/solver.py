@@ -1,8 +1,11 @@
 from abc import ABC, abstractmethod
+
 import numpy as np
 
+from .array_types import AssignmentPairIndices
 from .matrix import AssignmentMatrix
 from .method import AssignmentSolverMethod
+
 
 class AssignmentSolver(ABC):
     """
@@ -13,7 +16,7 @@ class AssignmentSolver(ABC):
     def run_assignment(
         self, 
         matrix: AssignmentMatrix
-        ) -> tuple[np.ndarray, np.ndarray]:
+        ) -> AssignmentPairIndices:
         """
         Run the assignment algorithm on the provided matrix.
         
@@ -34,7 +37,7 @@ class AssignmentSolver(ABC):
     def _run(
         self,
         matrix: AssignmentMatrix,
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> AssignmentPairIndices:
         """
         Run assignment logic for each concrete solver.
         

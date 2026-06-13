@@ -1,7 +1,7 @@
-import numpy as np
 from typing import cast
 from scipy.optimize import linear_sum_assignment  # type: ignore
 
+from ..array_types import AssignmentPairIndices
 from ..matrix import AssignmentMatrix
 from ..method import AssignmentSolverMethod
 from ..solver import AssignmentSolver
@@ -14,7 +14,7 @@ class HungarianAssignmentSolver(AssignmentSolver):
     def _run(
         self,
         matrix: AssignmentMatrix,
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> AssignmentPairIndices:
         """
         Solve assignment problem using the Hungarian algorithm.
         
@@ -30,7 +30,7 @@ class HungarianAssignmentSolver(AssignmentSolver):
             tuple: (row_indices, col_indices) representing the optimal assignment
         """
         assignment = cast(
-            tuple[np.ndarray, np.ndarray],
+            AssignmentPairIndices,
             linear_sum_assignment(matrix.convert_cost_format().value),
         )
         return assignment

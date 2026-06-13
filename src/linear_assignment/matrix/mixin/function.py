@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Callable, cast
+from collections.abc import Callable
+from typing import TYPE_CHECKING, cast
 
 import numpy as np
 
+from ...array_types import AssignmentPairIndices, BoolArray, IndexArray, NumericArray
 from ...value_type import AssignmentValueType
 
 from ..protocols.backing import AssignmentMatrixBacking
@@ -51,13 +53,13 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
         keep_mask = self.create_mutual_optimal_mask()
         self.value[~keep_mask] = replace_value
 
-    def create_mutual_optimal_mask(self) -> np.ndarray:
+    def create_mutual_optimal_mask(self) -> BoolArray:
         """
         Create a mask that keeps only mutually optimal row/column pairs.
 
         Returns
         -------
-        np.ndarray
+        BoolArray
             Boolean mask where True means keep this pair.
         """
         match self.type:
@@ -69,7 +71,7 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
                 row_optimal_mask = self.value == self.value.max(axis=1, keepdims=True)
         return row_optimal_mask & col_optimal_mask
 
-    def ratio_test(self, axis: int = 0) -> tuple[np.ndarray, np.ndarray]:
+    def ratio_test(self, axis: int = 0) -> tuple[NumericArray, NumericArray]:
         """
         Run a ratio test along the specified axis.
 
@@ -84,7 +86,7 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
 
         Returns
         -------
-        tuple[np.ndarray, np.ndarray]
+        tuple[NumericArray, NumericArray]
             ``(closest_values, ratio_test_results)``.
 
         Raises
@@ -134,7 +136,7 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
     def create_threshold_predicate(
         self,
         threshold: float,
-    ) -> Callable[[np.ndarray], np.ndarray]:
+    ) -> Callable[[NumericArray], BoolArray]:
         """
         Create a threshold predicate based on the assignment value type.
 
@@ -145,12 +147,12 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
 
         Returns
         -------
-        Callable[[np.ndarray], np.ndarray]
+        Callable[[NumericArray], BoolArray]
             Predicate applied element-wise to arrays.
         """
         return self.type.create_threshold_predicate(threshold=threshold)
 
-    def create_mask(self, threshold: float) -> np.ndarray:
+    def create_mask(self, threshold: float) -> BoolArray:
         """
         Create a boolean mask matrix from a threshold.
 
@@ -161,7 +163,7 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
 
         Returns
         -------
-        np.ndarray
+        BoolArray
             Mask matrix.
         """
         threshold_predicate = self.create_threshold_predicate(threshold=threshold)
@@ -169,10 +171,10 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
 
     def filter_assignment_by_threshold(
         self,
-        row_indices: np.ndarray,
-        col_indices: np.ndarray,
+        row_indices: IndexArray,
+        col_indices: IndexArray,
         threshold: float,
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> AssignmentPairIndices:
         """
         Filter assignment pairs by matrix values against a threshold.
 
@@ -182,16 +184,16 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
 
         Parameters
         ----------
-        row_indices : np.ndarray
+        row_indices : IndexArray
             Row indices from an assignment solver.
-        col_indices : np.ndarray
+        col_indices : IndexArray
             Column indices aligned with ``row_indices``.
         threshold : float
             Threshold applied to assigned cell values.
 
         Returns
         -------
-        tuple[np.ndarray, np.ndarray]
+        AssignmentPairIndices
             Filtered ``(row_indices, col_indices)`` with only passing pairs.
 
         Raises

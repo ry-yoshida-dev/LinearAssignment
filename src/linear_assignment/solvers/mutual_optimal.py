@@ -3,6 +3,7 @@ from typing import cast
 from scipy.sparse import csr_matrix # type: ignore
 from scipy.sparse.csgraph import maximum_bipartite_matching  # type: ignore
 
+from ..array_types import AssignmentPairIndices, IndexArray
 from ..matrix import AssignmentMatrix
 from ..method import AssignmentSolverMethod
 from ..solver import AssignmentSolver
@@ -18,7 +19,7 @@ class MutualOptimalAssignmentSolver(AssignmentSolver):
     def _run(
         self,
         matrix: AssignmentMatrix,
-    ) -> tuple[np.ndarray, np.ndarray]:
+    ) -> AssignmentPairIndices:
         """
         Solve assignment problem using the mutual optimal matching.
         
@@ -36,7 +37,7 @@ class MutualOptimalAssignmentSolver(AssignmentSolver):
         mask = matrix.create_mutual_optimal_mask()
 
         matching = cast(
-            np.ndarray,
+            IndexArray,
             maximum_bipartite_matching(
                 csr_matrix(mask.astype(np.int8)),
                 perm_type="row",

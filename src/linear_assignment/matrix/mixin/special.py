@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-import numpy as np
+from ...array_types import NumericArray
 
 from ..protocols.backing import AssignmentMatrixBacking
 
@@ -20,7 +20,7 @@ class AssignmentMatrixSpecialMixin(AssignmentMatrixBacking):
     def __getitem__(
         self,
         key: tuple[int, int] | int,
-    ) -> float | np.ndarray:
+    ) -> float | NumericArray:
         """
         Index into the underlying ndarray.
 
@@ -31,7 +31,7 @@ class AssignmentMatrixSpecialMixin(AssignmentMatrixBacking):
 
         Returns
         -------
-        float | np.ndarray
+        float | NumericArray
             Scalar or sub-array from ``value``.
         """
         return self.value[key]
@@ -39,7 +39,7 @@ class AssignmentMatrixSpecialMixin(AssignmentMatrixBacking):
     def __setitem__(
         self,
         key: Any,
-        value: float | np.ndarray,
+        value: float | NumericArray,
     ) -> None:
         """
         Assign into the underlying ndarray.
@@ -48,7 +48,7 @@ class AssignmentMatrixSpecialMixin(AssignmentMatrixBacking):
         ----------
         key : Any
             Index or slice key accepted by ``value``.
-        value : float | np.ndarray
+        value : float | NumericArray
             Value(s) to assign.
         """
         self.value[key] = value

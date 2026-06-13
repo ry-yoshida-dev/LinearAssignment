@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import numpy as np
 
+from ...array_types import NumericArray
 from ...value_type import AssignmentValueType
 
 from ..protocols.backing import AssignmentMatrixBacking
@@ -71,13 +72,13 @@ class AssignmentMatrixPropertyMixin(AssignmentMatrixBacking):
         return int(shape[0]), int(shape[1])
 
     @property
-    def flatten(self) -> np.ndarray:
+    def flatten(self) -> NumericArray:
         """
         Flatten the matrix.
 
         Returns
         -------
-        np.ndarray
+        NumericArray
             One-dimensional view of ``value``.
         """
         return self.value.flatten()

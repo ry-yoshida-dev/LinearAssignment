@@ -14,6 +14,7 @@ The package centers on:
 | Component | Description |
 | --------- | ----------- |
 | [`matrix/`](./matrix/) | `AssignmentMatrix` (mixins: property, function, special) and protocols |
+| [`array_types.py`](./array_types.py) | NumPy dtype aliases (`NumericArray`, `IndexArray`, `BoolArray`, …) |
 | [`value_type.py`](./value_type.py) | `AssignmentValueType` enum (`COST` / `SCORE`) |
 | [`solver.py`](./solver.py) | `AssignmentSolver` abstract base |
 | [`method.py`](./method.py) | `AssignmentSolverMethod` enum and solver factory (`build()`) |
