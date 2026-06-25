@@ -215,3 +215,45 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixMixinBase):
         paired_values = self.value[rows, cols]
         keep_mask = threshold_predicate(paired_values)
         return rows[keep_mask], cols[keep_mask]
+
+    def compute_bidirectional_t_scaled_softmax(
+        self,
+        t: float = 1.0,
+    ) -> NumericArray:
+        """
+        Compute a bidirectional temperature-scaled softmax to the matrix.
+
+        Parameters
+        ----------
+        t : float
+            Temperature parameter for scaling.
+
+        Returns
+        -------
+        NumericArray
+            Matrix after applying bidirectional softmax.
+        """
+        if t <= 0:
+            raise ValueError("Temperature t must be positive.")
+
+        match self.type:
+            case AssignmentValueType.COST:
+                # For cost matrices, we negate the values to convert to a score-like format
+                score_matrix = -self.value
+            case AssignmentValueType.SCORE:
+                score_matrix = self.value
+
+        # Row-wise softmax
+        row_max = np.max(score_matrix, axis=1, keepdims=True)
+        row_exp = np.exp((score_matrix - row_max) / t)
+        row_softmax = row_exp / np.sum(row_exp, axis=1, keepdims=True)
+
+        # Column-wise softmax
+        col_max = np.max(score_matrix, axis=0, keepdims=True)
+        col_exp = np.exp((score_matrix - col_max) / t)
+        col_softmax = col_exp / np.sum(col_exp, axis=0, keepdims=True)
+
+        # Combine both softmaxes (element-wise multiplication)
+        bidirectional_softmax = row_softmax * col_softmax
+
+        return bidirectional_softmax
