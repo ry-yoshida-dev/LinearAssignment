@@ -5,14 +5,14 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any
 
 from ...array_types import NumericArray
-
-from .base import AssignmentMatrixMixinBase
+from ..protocols import AssignmentMatrixBacking
 
 if TYPE_CHECKING:
     from ..core import AssignmentMatrix
 
 
-class AssignmentMatrixSpecialMixin(AssignmentMatrixMixinBase):
+class AssignmentMatrixSpecialMixin(AssignmentMatrixBacking):
+    """Provides indexing, arithmetic, and string representation for assignment matrices."""
     """
     Indexing, arithmetic, and string representation for assignment matrices.
     """

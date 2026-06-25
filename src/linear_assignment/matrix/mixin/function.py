@@ -9,14 +9,14 @@ import numpy as np
 
 from ...array_types import AssignmentPairIndices, BoolArray, IndexArray, NumericArray
 from ...value_type import AssignmentValueType
-
-from .base import AssignmentMatrixMixinBase
+from ..protocols import AssignmentMatrixBacking
 
 if TYPE_CHECKING:
     from ..core import AssignmentMatrix
 
 
-class AssignmentMatrixFunctionMixin(AssignmentMatrixMixinBase):
+class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
+    """Provides filtering, masking, and analysis operations on assignment matrices."""
     """
     Filtering, masking, and analysis operations on assignment matrices.
     """

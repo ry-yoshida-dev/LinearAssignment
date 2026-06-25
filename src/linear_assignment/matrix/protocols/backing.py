@@ -12,8 +12,7 @@ class AssignmentMatrixBacking(Protocol):
     """
     Minimum backing store required by matrix mixins and ``AssignmentMatrix``.
 
-    Implemented by :class:`~linear_assignment.matrix.core.AssignmentMatrix` (storage)
-    and mixins that inherit this protocol.
+    Implemented by :class:`~linear_assignment.matrix.core.AssignmentMatrix`.
 
     Attributes
     ----------

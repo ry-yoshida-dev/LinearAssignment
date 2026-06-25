@@ -6,11 +6,11 @@ import numpy as np
 
 from ...array_types import NumericArray
 from ...value_type import AssignmentValueType
+from ..protocols import AssignmentMatrixBacking
 
-from .base import AssignmentMatrixMixinBase
 
-
-class AssignmentMatrixPropertyMixin(AssignmentMatrixMixinBase):
+class AssignmentMatrixPropertyMixin(AssignmentMatrixBacking):
+    """Provides property access to assignment matrix attributes and derived values."""
     """
     Derived scalar and shape properties for an assignment matrix.
     """
