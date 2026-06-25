@@ -10,7 +10,6 @@ from ..protocols import AssignmentMatrixBacking
 
 
 class AssignmentMatrixPropertyMixin(AssignmentMatrixBacking):
-    """Provides property access to assignment matrix attributes and derived values."""
     """
     Derived scalar and shape properties for an assignment matrix.
     """

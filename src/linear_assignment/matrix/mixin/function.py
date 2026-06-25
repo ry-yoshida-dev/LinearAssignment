@@ -16,7 +16,6 @@ if TYPE_CHECKING:
 
 
 class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
-    """Provides filtering, masking, and analysis operations on assignment matrices."""
     """
     Filtering, masking, and analysis operations on assignment matrices.
     """

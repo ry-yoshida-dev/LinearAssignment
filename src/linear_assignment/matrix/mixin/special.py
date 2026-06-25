@@ -12,7 +12,6 @@ if TYPE_CHECKING:
 
 
 class AssignmentMatrixSpecialMixin(AssignmentMatrixBacking):
-    """Provides indexing, arithmetic, and string representation for assignment matrices."""
     """
     Indexing, arithmetic, and string representation for assignment matrices.
     """
