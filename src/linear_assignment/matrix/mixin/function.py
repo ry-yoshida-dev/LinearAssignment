@@ -227,6 +227,7 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixMixinBase):
         ----------
         t : float
             Temperature parameter for scaling.
+            If ``t < 1``, the softmax becomes sharper; if ``t > 1``, it becomes smoother. 
 
         Returns
         -------
