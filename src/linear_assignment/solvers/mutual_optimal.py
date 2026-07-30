@@ -36,15 +36,15 @@ class MutualOptimalAssignmentSolver(AssignmentSolver):
         """
         mask = matrix.create_mutual_optimal_mask()
 
-        matching = cast(
+        matched_columns = cast(
             IndexArray,
             maximum_bipartite_matching(
                 csr_matrix(mask.astype(np.int8)),
-                perm_type="row",
+                perm_type="column",
             ),
         )
-        row_indices = np.where(matching != -1)[0].astype(np.int64)
-        col_indices = matching[row_indices].astype(np.int64)
+        row_indices = np.where(matched_columns != -1)[0].astype(np.int64)
+        col_indices = matched_columns[row_indices].astype(np.int64)
         return row_indices, col_indices
 
     @property
