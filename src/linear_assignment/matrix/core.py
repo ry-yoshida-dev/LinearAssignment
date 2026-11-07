@@ -6,7 +6,6 @@ from dataclasses import dataclass
 
 from ..array_types import NumericArray
 from ..value_type import AssignmentValueType
-
 from .mixin import (
     AssignmentMatrixFunctionMixin,
     AssignmentMatrixPropertyMixin,

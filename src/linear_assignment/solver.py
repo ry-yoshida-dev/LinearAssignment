@@ -13,19 +13,17 @@ class AssignmentSolver(ABC):
 
     Concrete solvers must implement `_run()` with their own strategy.
     """
-    def run_assignment(
-        self, 
-        matrix: AssignmentMatrix
-        ) -> AssignmentPairIndices:
+
+    def run_assignment(self, matrix: AssignmentMatrix) -> AssignmentPairIndices:
         """
         Run the assignment algorithm on the provided matrix.
-        
-        Parameters:
+
+        Parameters
         ----------
         matrix: AssignmentMatrix
             Input assignment matrix.
-                    
-        Returns:
+
+        Returns
         -------
             tuple: (row_indices, col_indices) representing the optimal assignment
         """
@@ -40,13 +38,13 @@ class AssignmentSolver(ABC):
     ) -> AssignmentPairIndices:
         """
         Run assignment logic for each concrete solver.
-        
-        Parameters:
+
+        Parameters
         ----------
         matrix: AssignmentMatrix
             Input assignment matrix.
-                   
-        Returns:
+
+        Returns
         -------
             tuple: (row_indices, col_indices) representing the optimal assignment
         """
@@ -56,8 +54,8 @@ class AssignmentSolver(ABC):
     def method(self) -> AssignmentSolverMethod:
         """
         Return solver method type.
-        
-        Returns:
+
+        Returns
         -------
         AssignmentSolverMethod: The method type.
         """

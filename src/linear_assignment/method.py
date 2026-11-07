@@ -15,11 +15,20 @@ class AssignmentSolverMethod(Enum):
     MUTUAL_OPTIMAL: Uses the mutual optimal matching.
     GREEDY: Uses a greedy approach for assignment.
     """
+
     HUNGARIAN = "Hungarian"
     MUTUAL_OPTIMAL = "MutualOptimal"
     GREEDY = "Greedy"
 
     def build(self) -> "AssignmentSolver":
+        """
+        Create the solver that implements this method.
+
+        Returns
+        -------
+        AssignmentSolver
+            A new solver instance.
+        """
         from .solvers import (
             GreedyAssignmentSolver,
             HungarianAssignmentSolver,

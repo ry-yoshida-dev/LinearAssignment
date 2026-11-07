@@ -4,9 +4,12 @@ from __future__ import annotations
 
 import numpy as np
 
-from linear_assignment import AssignmentMatrix, AssignmentSolverMethod, AssignmentValueType
+from linear_assignment import (
+    AssignmentMatrix,
+    AssignmentSolverMethod,
+    AssignmentValueType,
+)
 from linear_assignment.solvers import MutualOptimalAssignmentSolver
-
 from tests.helpers import assert_valid_assignment, assignment_index_pairs
 
 
@@ -38,7 +41,7 @@ class TestMutualOptimalAssignmentSolver:
         )
         mask = matrix.create_mutual_optimal_mask()
         assert mask.any()
-        global_min_pos = np.unravel_index(np.argmin(matrix.value), matrix.value.shape)
+        global_min_pos = np.unravel_index(matrix.value.argmin(), matrix.value.shape)
         assert mask[global_min_pos]
 
         rows, cols = mutual_optimal_solver.run_assignment(matrix)

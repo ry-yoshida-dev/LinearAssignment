@@ -68,7 +68,8 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
             case AssignmentValueType.SCORE:
                 col_optimal_mask = self.value == self.value.max(axis=0, keepdims=True)
                 row_optimal_mask = self.value == self.value.max(axis=1, keepdims=True)
-        return row_optimal_mask & col_optimal_mask
+        mutual_optimal_mask: BoolArray = row_optimal_mask & col_optimal_mask
+        return mutual_optimal_mask
 
     def ratio_test(self, axis: int = 0) -> tuple[NumericArray, NumericArray]:
         """
@@ -99,37 +100,42 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
         len_row, len_col = self.value.shape
         eps = np.finfo(float).eps
 
+        # numpy's stubs leave an np.partition overload partially unknown, hence the narrow ignores below.
         match self.type:
             case AssignmentValueType.COST:
-                closest_values = np.min(self.value, axis=axis)
+                closest_values = self.value.min(axis=axis)
                 if axis == 0:
                     second_values = (
-                        np.partition(self.value, 1, axis=axis)[1, :]
+                        np.partition(self.value, 1, axis=axis)[1, :]  # pyright: ignore[reportUnknownMemberType]
                         if len_row >= 2
                         else np.full(len_col, np.inf)
                     )
                 else:
                     second_values = (
-                        np.partition(self.value, 1, axis=axis)[:, 1]
+                        np.partition(self.value, 1, axis=axis)[:, 1]  # pyright: ignore[reportUnknownMemberType]
                         if len_col >= 2
                         else np.full(len_row, np.inf)
                     )
-                ratio_test_results = np.divide(closest_values + eps, second_values + eps)
+                ratio_test_results = np.divide(
+                    closest_values + eps, second_values + eps
+                )
             case AssignmentValueType.SCORE:
-                closest_values = np.max(self.value, axis=axis)
+                closest_values = self.value.max(axis=axis)
                 if axis == 0:
                     second_values = (
-                        np.partition(self.value, -2, axis=axis)[-2, :]
+                        np.partition(self.value, -2, axis=axis)[-2, :]  # pyright: ignore[reportUnknownMemberType]
                         if len_row >= 2
                         else np.zeros(len_col)
                     )
                 else:
                     second_values = (
-                        np.partition(self.value, -2, axis=axis)[:, -2]
+                        np.partition(self.value, -2, axis=axis)[:, -2]  # pyright: ignore[reportUnknownMemberType]
                         if len_col >= 2
                         else np.zeros(len_row)
                     )
-                ratio_test_results = np.divide(second_values + eps, closest_values + eps)
+                ratio_test_results = np.divide(
+                    second_values + eps, closest_values + eps
+                )
         return closest_values, ratio_test_results
 
     def create_threshold_predicate(
@@ -226,7 +232,7 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
         ----------
         t : float
             Temperature parameter for scaling.
-            If ``t < 1``, the softmax becomes sharper; if ``t > 1``, it becomes smoother. 
+            If ``t < 1``, the softmax becomes sharper; if ``t > 1``, it becomes smoother.
 
         Returns
         -------
@@ -244,16 +250,16 @@ class AssignmentMatrixFunctionMixin(AssignmentMatrixBacking):
                 score_matrix = self.value
 
         # Row-wise softmax
-        row_max = np.max(score_matrix, axis=1, keepdims=True)
+        row_max = score_matrix.max(axis=1, keepdims=True)
         row_exp = np.exp((score_matrix - row_max) / t)
         row_softmax = row_exp / np.sum(row_exp, axis=1, keepdims=True)
 
         # Column-wise softmax
-        col_max = np.max(score_matrix, axis=0, keepdims=True)
+        col_max = score_matrix.max(axis=0, keepdims=True)
         col_exp = np.exp((score_matrix - col_max) / t)
         col_softmax = col_exp / np.sum(col_exp, axis=0, keepdims=True)
 
         # Combine both softmaxes (element-wise multiplication)
-        bidirectional_softmax = row_softmax * col_softmax
+        bidirectional_softmax: NumericArray = row_softmax * col_softmax
 
         return bidirectional_softmax

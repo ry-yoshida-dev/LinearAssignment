@@ -4,10 +4,13 @@ from __future__ import annotations
 
 import numpy as np
 
-from linear_assignment import AssignmentMatrix, AssignmentSolverMethod, AssignmentValueType
+from linear_assignment import (
+    AssignmentMatrix,
+    AssignmentSolverMethod,
+    AssignmentValueType,
+)
 from linear_assignment.array_types import IndexArray
 from linear_assignment.solvers.greedy import GreedyAssignmentSolver
-
 from tests.helpers import assert_valid_assignment, assignment_index_pairs
 
 

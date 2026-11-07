@@ -1,6 +1,7 @@
-import numpy as np
 from typing import cast
-from scipy.sparse import csr_matrix # type: ignore
+
+import numpy as np
+from scipy.sparse import csr_matrix  # type: ignore
 from scipy.sparse.csgraph import maximum_bipartite_matching  # type: ignore
 
 from ..array_types import AssignmentPairIndices, IndexArray
@@ -12,7 +13,7 @@ from ..solver import AssignmentSolver
 class MutualOptimalAssignmentSolver(AssignmentSolver):
     """
     MutualOptimalAssignmentSolver is a solver for assignment problems using the mutual optimal matching.
-    
+
     This solver filters out suboptimal pairs by keeping only mutual optimal matches.
     """
 
@@ -22,15 +23,15 @@ class MutualOptimalAssignmentSolver(AssignmentSolver):
     ) -> AssignmentPairIndices:
         """
         Solve assignment problem using the mutual optimal matching.
-        
+
         This method filters out suboptimal pairs by keeping only mutual optimal matches.
-        
-        Parameters:
+
+        Parameters
         ----------
         matrix: AssignmentMatrix
             Input assignment matrix.
-                   
-        Returns:
+
+        Returns
         -------
             tuple: (row_indices, col_indices) representing the mutual optimal assignment
         """
@@ -43,7 +44,7 @@ class MutualOptimalAssignmentSolver(AssignmentSolver):
                 perm_type="column",
             ),
         )
-        row_indices = np.where(matched_columns != -1)[0].astype(np.int64)
+        row_indices = (matched_columns != -1).nonzero()[0].astype(np.int64)
         col_indices = matched_columns[row_indices].astype(np.int64)
         return row_indices, col_indices
 
@@ -51,8 +52,8 @@ class MutualOptimalAssignmentSolver(AssignmentSolver):
     def method(self) -> AssignmentSolverMethod:
         """
         Return solver method type.
-        
-        Returns:
+
+        Returns
         -------
         AssignmentSolverMethod: The method type.
         """

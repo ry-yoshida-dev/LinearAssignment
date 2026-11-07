@@ -1,5 +1,5 @@
-from .hungarian import HungarianAssignmentSolver
 from .greedy import GreedyAssignmentSolver
+from .hungarian import HungarianAssignmentSolver
 from .mutual_optimal import MutualOptimalAssignmentSolver
 
 __all__ = [

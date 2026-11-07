@@ -4,7 +4,11 @@ from __future__ import annotations
 
 import numpy as np
 
-from linear_assignment import AssignmentMatrix, AssignmentSolverMethod, AssignmentValueType
+from linear_assignment import (
+    AssignmentMatrix,
+    AssignmentSolverMethod,
+    AssignmentValueType,
+)
 from linear_assignment.solvers import HungarianAssignmentSolver
 
 

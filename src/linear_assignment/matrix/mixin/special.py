@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
+import numpy as np
+
 from ...array_types import NumericArray
 from ..protocols import AssignmentMatrixBacking
 
@@ -33,7 +35,8 @@ class AssignmentMatrixSpecialMixin(AssignmentMatrixBacking):
         float | NumericArray
             Scalar or sub-array from ``value``.
         """
-        return self.value[key]
+        item: float | NumericArray = self.value[key]
+        return item
 
     def __setitem__(
         self,
@@ -72,7 +75,7 @@ class AssignmentMatrixSpecialMixin(AssignmentMatrixBacking):
         from ..core import AssignmentMatrix
 
         return AssignmentMatrix(
-            value=self.value + other.value,
+            value=np.add(self.value, other.value),
             type=self.type,
         )
 
@@ -96,7 +99,7 @@ class AssignmentMatrixSpecialMixin(AssignmentMatrixBacking):
         from ..core import AssignmentMatrix
 
         return AssignmentMatrix(
-            value=self.value * other.value,
+            value=np.multiply(self.value, other.value),
             type=self.type,
         )
 
@@ -109,8 +112,4 @@ class AssignmentMatrixSpecialMixin(AssignmentMatrixBacking):
         str
             Formatted string with shape information.
         """
-        return (
-            f"AssignmentMatrix(\n"
-            f"  matrix.shape={self.value.shape},\n"
-            f")"
-        )
+        return f"AssignmentMatrix(\n  matrix.shape={self.value.shape},\n)"

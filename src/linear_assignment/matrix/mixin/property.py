@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import numpy as np
-
 from ...array_types import NumericArray
 from ...value_type import AssignmentValueType
 from ..protocols import AssignmentMatrixBacking
@@ -48,7 +46,7 @@ class AssignmentMatrixPropertyMixin(AssignmentMatrixBacking):
         float
             Mean of all values in ``value``.
         """
-        return float(np.mean(self.value))
+        return float(self.value.mean())
 
     @property
     def shape(self) -> tuple[int, int]:
@@ -92,7 +90,7 @@ class AssignmentMatrixPropertyMixin(AssignmentMatrixBacking):
         float
             Global maximum.
         """
-        return float(np.max(self.value))
+        return float(self.value.max())
 
     @property
     def min(self) -> float:
@@ -104,4 +102,4 @@ class AssignmentMatrixPropertyMixin(AssignmentMatrixBacking):
         float
             Global minimum.
         """
-        return float(np.min(self.value))
+        return float(self.value.min())

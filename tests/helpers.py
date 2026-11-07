@@ -59,10 +59,11 @@ def assert_valid_assignment(
 ) -> None:
     """Verify assignment indices are in bounds and conflict-free."""
     assert row_indices.shape == col_indices.shape
-    assert len(np.unique(row_indices)) == len(row_indices)
-    assert len(np.unique(col_indices)) == len(col_indices)
-    assert np.all((row_indices >= 0) & (row_indices < num_rows))
-    assert np.all((col_indices >= 0) & (col_indices < num_cols))
+    # numpy's stubs leave an np.unique overload partially unknown.
+    assert len(np.unique(row_indices)) == len(row_indices)  # pyright: ignore[reportUnknownMemberType]
+    assert len(np.unique(col_indices)) == len(col_indices)  # pyright: ignore[reportUnknownMemberType]
+    assert ((row_indices >= 0) & (row_indices < num_rows)).all()
+    assert ((col_indices >= 0) & (col_indices < num_cols)).all()
     assert len(row_indices) <= min(num_rows, num_cols)
 
 

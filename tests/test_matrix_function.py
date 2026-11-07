@@ -104,7 +104,7 @@ class TestRatioTest:
         )
         _, ratios = matrix.ratio_test(axis=0)
         assert ratios.shape == (3,)
-        assert np.all(np.isfinite(ratios))
+        assert np.isfinite(ratios).all()
 
     def test_single_column_axis_1_uses_inf_second_values(self) -> None:
         matrix = AssignmentMatrix(
@@ -146,7 +146,9 @@ class TestThresholdFiltering:
             type=AssignmentValueType.COST,
         )
         predicate = matrix.create_threshold_predicate(threshold=1.5)
-        np.testing.assert_array_equal(predicate(np.array([1.0, 2.0])), np.array([True, False]))
+        np.testing.assert_array_equal(
+            predicate(np.array([1.0, 2.0])), np.array([True, False])
+        )
 
     def test_filter_assignment_by_threshold(self) -> None:
         matrix = AssignmentMatrix(
@@ -168,7 +170,9 @@ class TestThresholdFiltering:
         )
         rows = np.array([], dtype=np.int64)
         cols = np.array([], dtype=np.int64)
-        out_rows, out_cols = matrix.filter_assignment_by_threshold(rows, cols, threshold=1.0)
+        out_rows, out_cols = matrix.filter_assignment_by_threshold(
+            rows, cols, threshold=1.0
+        )
         assert out_rows.size == 0
         assert out_cols.size == 0
 

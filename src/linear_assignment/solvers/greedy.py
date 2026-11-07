@@ -1,5 +1,6 @@
-import numpy as np
 from importlib import import_module
+
+import numpy as np
 
 from ..array_types import AssignmentPairIndices, IndexArray
 from ..matrix import AssignmentMatrix
@@ -9,27 +10,29 @@ from ..value_type import AssignmentValueType
 
 njit = import_module("numba").njit
 
+
 class GreedyAssignmentSolver(AssignmentSolver):
     """
     GreedyAssignmentSolver is a solver for assignment problems using a greedy approach.
-    
+
     This solver sorts the matrix entries and greedily assigns the best available pairs while avoiding conflicts.
     """
+
     def _run(
         self,
         matrix: AssignmentMatrix,
     ) -> AssignmentPairIndices:
         """
         Solve assignment problem using a greedy approach.
-        
+
         This method sorts the matrix entries and greedily assigns the best available pairs while avoiding conflicts.
-        
-        Parameters:
+
+        Parameters
         ----------
         matrix: AssignmentMatrix
             Input assignment matrix.
-                   
-        Returns:
+
+        Returns
         -------
             tuple: (row_indices, col_indices) representing the greedy assignment
         """
@@ -38,13 +41,16 @@ class GreedyAssignmentSolver(AssignmentSolver):
         flat = matrix_value.ravel()
 
         # Sort all matrix positions once in C, then greedily pick non-conflicting pairs.
-        sorted_indices = np.argsort(flat)
+        sorted_indices = flat.argsort()
         if matrix.type == AssignmentValueType.SCORE:
             sorted_indices = sorted_indices[::-1]
-        return self._select_greedy_matches(sorted_indices, num_rows, num_cols)
+        matches: AssignmentPairIndices = self._select_greedy_matches(
+            sorted_indices, num_rows, num_cols
+        )
+        return matches
 
     @staticmethod
-    @njit(cache=True)  # pyright: ignore[reportUntypedFunctionDecorator]
+    @njit(cache=True)  # type: ignore[untyped-decorator]  # pyright: ignore[reportUntypedFunctionDecorator]  # numba ships no type stubs
     def _select_greedy_matches(
         sorted_indices: IndexArray,
         num_rows: int,
@@ -52,8 +58,8 @@ class GreedyAssignmentSolver(AssignmentSolver):
     ) -> AssignmentPairIndices:
         """
         Select greedy matches from the sorted indices.
-        
-        Parameters:
+
+        Parameters
         ----------
         sorted_indices: IndexArray
             The sorted indices of the matrix.
@@ -62,7 +68,7 @@ class GreedyAssignmentSolver(AssignmentSolver):
         num_cols: int
             The number of columns in the matrix.
 
-        Returns:
+        Returns
         -------
         tuple: (row_indices, col_indices) representing the greedy assignment
         """
@@ -93,8 +99,8 @@ class GreedyAssignmentSolver(AssignmentSolver):
     def method(self) -> AssignmentSolverMethod:
         """
         Return solver method type.
-        
-        Returns:
+
+        Returns
         -------
         AssignmentSolverMethod: The method type.
         """
