@@ -1,12 +1,12 @@
-# Tests
+# tests
 
 ## Overview
 
-Pytest suite for the `linear_assignment` package under `src/`. Covers matrix mixins, value types, solver factory methods, and all three assignment solvers.
+Pytest suite for `linear_assignment`.
 
 ## Components
 
-| File | Description |
+| Component | Description |
 | --- | --- |
 | [helpers.py](helpers.py) | Assignment verification and brute-force reference helpers |
 | [conftest.py](conftest.py) | Shared pytest fixtures |
@@ -21,17 +21,3 @@ Pytest suite for the `linear_assignment` package under `src/`. Covers matrix mix
 | [test_solver_greedy.py](test_solver_greedy.py) | Greedy heuristic assignment |
 | [test_solver_mutual_optimal.py](test_solver_mutual_optimal.py) | Mutual-optimal matching |
 | [test_init.py](test_init.py) | Public API exports |
-
-## Examples
-
-Run all tests from the repository root:
-
-```bash
-pytest
-```
-
-Install dev dependencies first:
-
-```bash
-pip install -e ".[dev]"
-```

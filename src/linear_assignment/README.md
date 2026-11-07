@@ -2,28 +2,15 @@
 
 ## Overview
 
-`linear_assignment` provides a compact API for assignment matching on 2D matrices.
-The package centers on:
-
-- `AssignmentMatrix`: matrix object with value semantics (`COST`/`SCORE`)
-- `AssignmentSolver`: abstract solver interface
-- `AssignmentSolverMethod`: enum factory for concrete solvers
+Assignment matrices with cost/score semantics, an abstract solver interface, and an enum factory for the concrete solvers.
 
 ## Components
 
 | Component | Description |
 | --------- | ----------- |
-| [`matrix/`](./matrix/) | `AssignmentMatrix` (mixins: property, function, special) and protocols |
+| [`matrix/`](./matrix/README.md) | `AssignmentMatrix` and its mixins and protocols |
 | [`array_types.py`](./array_types.py) | NumPy dtype aliases (`NumericArray`, `IndexArray`, `BoolArray`, …) |
 | [`value_type.py`](./value_type.py) | `AssignmentValueType` enum (`COST` / `SCORE`) |
 | [`solver.py`](./solver.py) | `AssignmentSolver` abstract base |
 | [`method.py`](./method.py) | `AssignmentSolverMethod` enum and solver factory (`build()`) |
-| [`solvers/`](./solvers/) | Concrete implementations (Hungarian, Greedy, MutualOptimal) |
-
-## Supported solvers
-
-| Method | Class | Characteristics |
-| ------ | ----- | --------------- |
-| `HUNGARIAN` | `HungarianAssignmentSolver` | Global optimum via `scipy.optimize.linear_sum_assignment` |
-| `GREEDY` | `GreedyAssignmentSolver` | Fast heuristic; sorted pick without row/col conflicts |
-| `MUTUAL_OPTIMAL` | `MutualOptimalAssignmentSolver` | Keeps only mutually optimal row/col pairs |
+| [`solvers/`](./solvers/README.md) | Concrete solver implementations |

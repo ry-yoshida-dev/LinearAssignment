@@ -2,15 +2,15 @@
 
 ## Overview
 
-`AssignmentMatrix` is a dataclass composed from three mixins: properties, functional operations, and dunder methods. Protocols describe the backing store and statistics surface that mixins expect.
+`AssignmentMatrix`, a 2D cost or score matrix with statistics, masking, and assignment filtering.
 
 ## Components
 
 | Component | Description |
 | --------- | ----------- |
 | [`core.py`](./core.py) | `AssignmentMatrix` dataclass wiring mixins together |
-| [`protocols/`](./protocols/) | `AssignmentMatrixBacking` and `AssignmentMatrixStatistics` protocols |
-| [`mixin/`](./mixin/) | Property, function, and special mixins composed into `AssignmentMatrix` |
+| [`protocols/`](./protocols/README.md) | `AssignmentMatrixBacking` and `AssignmentMatrixStatistics` protocols |
+| [`mixin/`](./mixin/README.md) | Property, function, and special mixins composed into `AssignmentMatrix` |
 
 ## Examples
 

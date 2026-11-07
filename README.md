@@ -2,36 +2,21 @@
 
 ## Overview
 
-LinearAssignment (`linear_assignment`) is a Python package for solving bipartite assignment problems from cost/score matrices.
-It provides a unified interface over multiple solver strategies:
+`linear_assignment` solves bipartite assignment problems on cost or score matrices through one interface over several solvers. `AssignmentMatrix.type` selects whether lower (`COST`) or higher (`SCORE`) values are preferred, and every solver returns `(row_indices, col_indices)`.
 
-- Hungarian (global optimum)
-- Greedy (fast heuristic)
-- Mutual-optimal (mutual best pair filtering)
-
-For package-level details, see [src/linear_assignment/README.md](src/linear_assignment/README.md).
+| Method | Class | Characteristics |
+| ------ | ----- | --------------- |
+| `HUNGARIAN` | `HungarianAssignmentSolver` | Global optimum via `scipy.optimize.linear_sum_assignment` |
+| `GREEDY` | `GreedyAssignmentSolver` | Fast heuristic; sorted pick without row/column conflicts |
+| `MUTUAL_OPTIMAL` | `MutualOptimalAssignmentSolver` | Keeps only mutually optimal row/column pairs |
 
 ## Installation
-
-From the package root (the directory containing `pyproject.toml`):
 
 ```bash
 pip install .
 ```
 
-For development:
-
-```bash
-pip install -e .
-```
-
-If you only need dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-## Quick example
+## Usage
 
 ```python
 import numpy as np
@@ -51,11 +36,5 @@ matrix = AssignmentMatrix(
 )
 
 solver = AssignmentSolverMethod.HUNGARIAN.build()
-row_idx, col_idx = solver.run_assignment(matrix)
-print(row_idx, col_idx)
+row_indices, col_indices = solver.run_assignment(matrix)
 ```
-
-## Notes
-
-- `AssignmentMatrix.type` controls whether lower (`COST`) or higher (`SCORE`) values are preferred.
-- All solvers return `(row_indices, col_indices)` as `numpy.ndarray`.
