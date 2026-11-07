@@ -49,3 +49,6 @@ reportUnknownVariableType = "error"
 reportUnknownMemberType = "error"
 reportUnknownArgumentType = "error"
 reportImplicitRelativeImport = "error"
+
+[tool.uv]
+exclude-newer = "7 days"
