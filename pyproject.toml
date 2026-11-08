@@ -10,7 +10,7 @@ authors = [
 ]
 description = "Unified linear assignment solvers for cost/score matrices."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -35,7 +35,7 @@ pythonpath = ["src", "."]
 
 [tool.basedpyright]
 include = ["src", "tests"]
-pythonVersion = "3.10"
+pythonVersion = "3.11"
 typeCheckingMode = "strict"
 reportMissingParameterType = "error"
 reportUnknownParameterType = "error"
@@ -63,7 +63,7 @@ dev = [
 exclude-newer = "7 days"
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "B", "D"]
